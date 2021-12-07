@@ -58,4 +58,27 @@ app.post('/api/insert',(req,res)=>{
 
 })
 
+app.post("/api/login", (req,res)=> {
+	const {email, password} = req.body
+	const values = [email,password]
+		var connection = mysql.createConnection(credentials)
+		connection.query("SELECT * FROM users WHERE email = ? AND password = ?",
+		values, (err, result)=>{
+			if(err){
+				res.status(500).send(err)
+			}else{
+				if(result.length > 0){
+					res.status(200).send({
+						"id":result[0].id,
+						"email":result[0].name,
+						"password":result[0].password
+					})
+				}else{
+					res.status(400).send("usuario no existe")
+				}
+			}
+		})
+		connection.end()
+})
+
 app.listen(port, ()=>console.log(` servidor corriendo en ${port} `) )
