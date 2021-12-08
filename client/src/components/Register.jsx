@@ -1,14 +1,12 @@
-
 import * as Mui from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import { useState } from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router'
 
 
 const useStyles = makeStyles(theme => ({
-   
-   
     container: {
         height: '60%',
         marginTop: theme.spacing(10),
@@ -17,7 +15,6 @@ const useStyles = makeStyles(theme => ({
             width: '100%',
             height: '100%'
         }
-       
     },
     div: {
         marginTop: theme.spacing(8),
@@ -35,7 +32,11 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         margin: theme.spacing(3, 0, 2)
-    }
+    },
+    error: {
+        margin: theme.spacing(3, 0, 2),
+        Color: theme.palette.secundary
+    },
 }))
 
 
@@ -45,18 +46,23 @@ const Register = () => {
     const [password, setpassword]=useState("")
     const [name ,setname]=useState("")
     const classes = useStyles()
+    const navigate = useNavigate()
     
 
-const onSubmit= ()=>{
+const onSubmit=   (e)=>{
+        e.preventDefault();
+
         axios.post('http://localhost:3003/api/insert',{
 
             email:email,
             password:password,
             name:name
 
-            }).then(()=>{
-                alert("insertado")
-            })//catch
+            }).then(()=>{                
+                navigate("/login")
+            }).catch((error)=>{
+                console.log(error);
+            })
     }
 return ( <>
 
@@ -65,7 +71,7 @@ return ( <>
             <Mui.Container  elevation={5} maxWidth='xs' className={classes.container}>{/*component={Paper}*/}
                 <div className={classes.div}>
                     <Mui.Avatar className={classes.avatar}>
-                        <LockOutlinedIcon/>
+                        <AppRegistrationIcon/>
                     </Mui.Avatar>
                     <Mui.Typography component='h1' variant='h5'>Registro</ Mui.Typography>
                     <form className={classes.form}>
@@ -80,6 +86,7 @@ return ( <>
                             onChange={(e)=> setemail(e.target.value)}
                             name='email'
                         />
+                        
                         <Mui.TextField
                             fullWidth
                             type='password'
@@ -90,6 +97,7 @@ return ( <>
                             onChange={(e)=> setpassword(e.target.value)}
                             name='password'
                         /> 
+                        
                         <Mui.TextField
                             fullWidth
                             type='text'

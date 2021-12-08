@@ -23,17 +23,37 @@ const credentials = {
 
 
 
-app.get('/users',(req,res)=>{
-
+app.get('/api/get',(req,res)=>{
     const sqlselect= "SELECT * FROM users"
     const connection = mysql.createConnection(credentials)
 	connection.query(sqlselect, (error, result) => {
 		
+		console.log(result);
+		
 		if (error) {
-			res.status(500).send(error)
+			throw error
 		} else {
-			res.send(result)
-		}
+				res.status(200).send(result)
+			}
+	})
+	connection.end()
+    
+    
+})
+
+app.get('/api/operations',(req,res)=>{
+
+    const sqlselect= "SELECT * FROM operations"
+    const connection = mysql.createConnection(credentials)
+	connection.query(sqlselect, (error, result) => {
+		
+		console.log(result);
+		
+		if (error) {
+			throw error
+		} else {
+				res.status(200).send(result)
+			}
 	})
 	connection.end()
     
@@ -44,7 +64,9 @@ app.post('/api/insert',(req,res)=>{
     const email= req.body.email;
     const password=req.body.password;
 	const name=req.body.name
-    
+    console.log(email);
+    console.log(password);
+	console.log(name);
     const sqlInsert= `INSERT INTO users (email,password,name) VALUES (?,?,?)`
     const connection = mysql.createConnection(credentials)
 	connection.query(sqlInsert,[email,password,name], (error, result) => {
@@ -58,10 +80,11 @@ app.post('/api/insert',(req,res)=>{
 
 })
 
+
 app.post("/api/login", (req,res)=> {
 	const {email, password} = req.body
 	const values = [email,password]
-		var connection = mysql.createConnection(credentials)
+	const connection = mysql.createConnection(credentials)
 		connection.query("SELECT * FROM users WHERE email = ? AND password = ?",
 		values, (err, result)=>{
 			if(err){
@@ -70,7 +93,7 @@ app.post("/api/login", (req,res)=> {
 				if(result.length > 0){
 					res.status(200).send({
 						"id":result[0].id,
-						"email":result[0].name,
+						"email":result[0].email,
 						"password":result[0].password
 					})
 				}else{

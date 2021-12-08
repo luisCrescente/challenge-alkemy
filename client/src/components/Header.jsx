@@ -8,7 +8,7 @@ const Header = () => {
         <>
         <Mui.AppBar position="static" >
             <Mui.Toolbar>
-            <Mui.Typography variant="h4">Demo con material UI</Mui.Typography>
+            <Mui.Typography variant="h4">Alkemy Challenge</Mui.Typography>
             </Mui.Toolbar>
         <Mui.Paper>
             <Mui.Tabs indicatorColor="primary" value={opt} centered >
