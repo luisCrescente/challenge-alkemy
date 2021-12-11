@@ -6,9 +6,6 @@ const mysql=require('mysql')
 const bodyParser= require('body-parser')
 
 
-
-
-
 app.use(cors())
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
@@ -56,8 +53,6 @@ app.get('/api/operations',(req,res)=>{
 			}
 	})
 	connection.end()
-    
-    
 })
 
 app.post('/api/insert',(req,res)=>{
@@ -75,8 +70,8 @@ app.post('/api/insert',(req,res)=>{
 	} else {
 			res.status(200).send(result)
 		}
-	 })
-	 connection.end()
+	})
+	connection.end()
 
 })
 
