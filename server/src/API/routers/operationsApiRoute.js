@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require('../controllers/operationsApiController');
 
 
-router.get('/operations', controller.detailApi);
+router.get('/all', controller.detailApi);
 
 
 

@@ -4,7 +4,7 @@ const controller = require('../controllers/usersApiControllers');
 
 
 
-    router.get('/users',controller.list)
+    router.get('/list',controller.list)
     
 
 

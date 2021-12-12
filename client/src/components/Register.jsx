@@ -7,6 +7,8 @@ import {useNavigate} from 'react-router'
 
 
 const useStyles = makeStyles(theme => ({
+   
+   
     container: {
         height: '60%',
         marginTop: theme.spacing(10),
@@ -51,7 +53,7 @@ const Register = () => {
 
 const onSubmit=   (e)=>{
         e.preventDefault();
-
+       
         axios.post('http://localhost:3003/api/insert',{
 
             email:email,

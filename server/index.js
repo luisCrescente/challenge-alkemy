@@ -5,10 +5,17 @@ const cors= require('cors')
 const mysql=require('mysql')
 const bodyParser= require('body-parser')
 
+const userApi = require('./src/API/routers/usersApiRouter');
+const operationApi = require('./src/API/routers/operationsApiRoute');
+const typeApi = require('./src/API/routers/typesApiRouter');
+
 
 app.use(cors())
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
+app.use('/users',userApi)
+app.use('/operations',operationApi)
+app.use('/types',typeApi)
 
 
 const credentials = {
@@ -20,7 +27,7 @@ const credentials = {
 
 
 
-app.get('/api/get',(req,res)=>{
+app.get('/api/users',(req,res)=>{
     const sqlselect= "SELECT * FROM users"
     const connection = mysql.createConnection(credentials)
 	connection.query(sqlselect, (error, result) => {
@@ -53,6 +60,27 @@ app.get('/api/operations',(req,res)=>{
 			}
 	})
 	connection.end()
+    
+    
+})
+
+app.get('/api/types',(req,res)=>{
+
+    const sqlselect= "SELECT * FROM types"
+    const connection = mysql.createConnection(credentials)
+	connection.query(sqlselect, (error, result) => {
+		
+		console.log(result);
+		
+		if (error) {
+			throw error
+		} else {
+				res.status(200).send(result)
+			}
+	})
+	connection.end()
+    
+    
 })
 
 app.post('/api/insert',(req,res)=>{
@@ -70,8 +98,8 @@ app.post('/api/insert',(req,res)=>{
 	} else {
 			res.status(200).send(result)
 		}
-	})
-	connection.end()
+	 })
+	 connection.end()
 
 })
 
@@ -98,5 +126,7 @@ app.post("/api/login", (req,res)=> {
 		})
 		connection.end()
 })
+
+
 
 app.listen(port, ()=>console.log(` servidor corriendo en ${port} `) )

@@ -5,7 +5,7 @@ const {op} = require("sequelize");
 const operations ={
     detailApi:(req,res)=>{    
         db.Operation
-        .findAll({include:[{association:'type'},{association:'users'}]
+        .findAll({include:[{association:'types'},{association:'users'}]
     })
         .then(operations =>{
             let ingresos = operations.filter(operation =>{
