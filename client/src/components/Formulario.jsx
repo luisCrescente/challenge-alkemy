@@ -1,15 +1,13 @@
-
 import * as Mui from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import AttachMoneyTwoToneIcon from '@mui/icons-material/AttachMoneyTwoTone';
 import { useState } from 'react';
 import axios from 'axios';
-import {useNavigate} from 'react-router'
+//import {useNavigate} from 'react-router'
+import Tabla from './Tabla'
 
 
 const useStyles = makeStyles(theme => ({
-   
-   
     container: {
         height: '60%',
         marginTop: theme.spacing(10),
@@ -26,7 +24,7 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center'
     },
     avatar: {
-        margin: theme.spacing(1),
+        margin: theme.spacing(2),
         backgroundColor: theme.palette.primary.main
     },
     form: {
@@ -43,40 +41,43 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-const Register = () => {
+const Formulario = () => {
 
-    const [email, setemail]=useState("")
-    const [password, setpassword]=useState("")
-    const [name ,setname]=useState("")
+    const [descripcion, setdescripcion]=useState("")
+    const [tipo, settipo]=useState("")
+    const [monto ,setmonto]=useState("")
     const classes = useStyles()
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
     
+    
+
 
 const onSubmit=   (e)=>{
         e.preventDefault();
        
-        axios.post('http://localhost:3003/api/insert',{
+        axios.post('http://localhost:3003/api/data',{
 
-            email:email,
-            password:password,
-            name:name
+            descripcion:descripcion,
+            tipo:tipo,
+            monto:monto
 
             }).then(()=>{                
-                navigate("/login")
+             console.log("hola")
             }).catch((error)=>{
                 console.log(error);
             })
     }
+
 return ( <>
 
 <Mui.Grid >
             <Mui.CssBaseline />
-            <Mui.Container  elevation={5} maxWidth='xs' className={classes.container}>{/*component={Paper}*/}
+            <Mui.Container  elevation={5} maxWidth='xs' className={classes.container}>
                 <div className={classes.div}>
                     <Mui.Avatar className={classes.avatar}>
-                        <AppRegistrationIcon/>
+                        <AttachMoneyTwoToneIcon/>
                     </Mui.Avatar>
-                    <Mui.Typography component='h1' variant='h5'>Registro</ Mui.Typography>
+                    <Mui.Typography component='h1' variant='h5'>Tus Operaciones</ Mui.Typography>
                     <form className={classes.form}>
                         <Mui.TextField
                             fullWidth
@@ -85,50 +86,71 @@ return ( <>
                             color='primary'
                             margin='normal'
                             variant='standard'
-                            label='email'
-                            onChange={(e)=> setemail(e.target.value)}
-                            name='email'
+                            label='descripcion'
+                            onChange={(e)=> setdescripcion(e.target.value)}
+                            name='descripcion'
                         />
                         
                         <Mui.TextField
                             fullWidth
-                            type='password'
+                            type='date'
                             color='primary'
                             margin='normal'
-                            variant='standard'
-                            label='password'
-                            onChange={(e)=> setpassword(e.target.value)}
-                            name='password'
+                            variant='standard'                            
+                            //onChange={(e)=> setpassword(e.target.value)}
+                            name='Fecha'
                         /> 
                         
                         <Mui.TextField
                             fullWidth
-                            type='text'
+                            type='number'
                             autoComplete='off'
                             color='primary'
                             margin='normal'
                             variant='standard'
-                            label='nickname'
-                            onChange={(e)=> setname(e.target.value)}
-                            name='name'
+                            label='tipo'
+                            onChange={(e)=> settipo(e.target.value)}
+                            name='tipo'
                         /> 
+                        <Mui.TextField
+                            fullWidth
+                            type='number'
+                            autoComplete='off'
+                            color='primary'
+                            margin='normal'
+                            variant='standard'
+                            label='monto'
+                            onChange={(e)=> setmonto(e.target.value)}
+                            name='monto'
+                        />
                         <Mui.Button
                             fullWidth
                             variant='contained'
-                            color='secondary'
+                            color='primary'
                             className={classes.button}
                             onClick={onSubmit}
                         >
-                            Crear Usuario
+                        Cargar Datos
                         </Mui.Button>
                     </form>
                 </div>
             </Mui.Container>
         </Mui.Grid>
 
-    
+    <Tabla />
         
     </> );
 }
 
-export default Register
+export default Formulario;
+
+
+
+
+
+
+
+
+
+
+
