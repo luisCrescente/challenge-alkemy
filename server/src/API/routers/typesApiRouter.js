@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/typeApiController');
+const controller = require('../controller/typeControllers');
 
-    router.get('/show', controller.detail)
+router.get('/api/types', controller.conection);
+
+router.get('/show', controller.detail)
 
 module.exports = router;
