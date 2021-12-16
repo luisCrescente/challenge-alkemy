@@ -1,4 +1,3 @@
-
 module.exports = (sequelize,dataTypes)=>{
     let alias="Operation";
     let cols = {
