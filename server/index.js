@@ -13,9 +13,9 @@ app.use(bodyParser.urlencoded({
 }))
 
 
-const userApi = require('./src/API/routers/userRouter')
-const operationApi = require('./src/API/routers/operationRouter');
-const typeApi = require('./src/API/routers/typeRouter');
+const userApi = require('./src/API/routers/usersApiRouter')
+const operationApi = require('./src/API/routers/operationsApiRoute');
+const typeApi = require('./src/API/routers/typesApiRouter');
 
 
 app.use('/users', userApi)

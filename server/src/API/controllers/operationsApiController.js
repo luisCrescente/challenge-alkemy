@@ -23,19 +23,22 @@ const operations = {
     },
 
     insert: (req, res) => {
-        const descripcion = req.body.descripcion;
-        const tipo = req.body.tipo;
-        const monto = req.body.monto
-        console.log(descripcion);
-        console.log(tipo);
-        console.log(monto);
-
-        const sqlInsert = `INSERT INTO operations (description,amount,id_type,id_user) VALUES (?,?,?,?)`
+        const description= req.body.description;
+        const type=req.body.type;
+        const amount=req.body.amount
+        const date=req.body.date
+        
+        console.log(description);
+        console.log(type);
+        console.log(amount);
+        console.log(date);
+    
+        const sqlInsert= `INSERT INTO operations (description,amount,date,id_type,id_user) VALUES (?,?,?,?,?)`
         const connection = mysql.createConnection(credentials)
-        connection.query(sqlInsert, [descripcion, monto, tipo, "1"], (error, result) => {
+        connection.query(sqlInsert,[description,amount,date,"1",type], (error, result) => {
             if (error) {
-                res.status(500).send(error)
-            } else {
+            res.status(500).send(error)
+        } else {
                 res.status(200).send(result)
             }
         })

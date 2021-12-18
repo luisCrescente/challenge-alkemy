@@ -43,9 +43,11 @@ const useStyles = makeStyles(theme => ({
 
 const Formulario = () => {
 
-    const [descripcion, setdescripcion]=useState("")
-    const [tipo, settipo]=useState("")
-    const [monto ,setmonto]=useState("")
+    const [description, setDescription]=useState("")
+    const [type, setType]=useState("")
+    const [amount ,setAmount]=useState("")
+    const [date ,setDate]=useState("")
+
     const classes = useStyles()
     //const navigate = useNavigate()
     
@@ -57,12 +59,16 @@ const onSubmit=   (e)=>{
        
         axios.post('http://localhost:3003/api/data',{
 
-            descripcion:descripcion,
-            tipo:tipo,
-            monto:monto
+            description:description,
+            type:type,
+            amount:amount,
+            date: date
+        
+            
+                
 
             }).then(()=>{                
-             console.log("hola")
+                console.log("hola")
             }).catch((error)=>{
                 console.log(error);
             })
@@ -87,8 +93,8 @@ return ( <>
                             margin='normal'
                             variant='standard'
                             label='descripcion'
-                            onChange={(e)=> setdescripcion(e.target.value)}
-                            name='descripcion'
+                            onChange={(e)=> setDescription(e.target.value)}
+                            name='description'
                         />
                         
                         <Mui.TextField
@@ -97,8 +103,8 @@ return ( <>
                             color='primary'
                             margin='normal'
                             variant='standard'                            
-                            //onChange={(e)=> setpassword(e.target.value)}
-                            name='Fecha'
+                             onChange={(e)=> setDate(e.target.value)}
+                            name='date'
                         /> 
                         
                         <Mui.TextField
@@ -109,8 +115,8 @@ return ( <>
                             margin='normal'
                             variant='standard'
                             label='tipo'
-                            onChange={(e)=> settipo(e.target.value)}
-                            name='tipo'
+                            onChange={(e)=> setType(e.target.value)}
+                            name='type'
                         /> 
                         <Mui.TextField
                             fullWidth
@@ -120,8 +126,8 @@ return ( <>
                             margin='normal'
                             variant='standard'
                             label='monto'
-                            onChange={(e)=> setmonto(e.target.value)}
-                            name='monto'
+                            onChange={(e)=> setAmount(e.target.value)}
+                            name='amount'
                         />
                         <Mui.Button
                             fullWidth
@@ -143,14 +149,3 @@ return ( <>
 }
 
 export default Formulario;
-
-
-
-
-
-
-
-
-
-
-

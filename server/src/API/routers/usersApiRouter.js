@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controller/userControllers')
+const controller = require('../controllers/usersApiControllers')
 
 
 router.get("/api/users", controller.conection);
