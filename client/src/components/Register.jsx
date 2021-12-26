@@ -55,7 +55,7 @@ const Register = () => {
 const onSubmit=   (e)=>{
         e.preventDefault();
        
-        axios.post('http://localhost:3003/api/insert',{
+        axios.post('http://localhost:3003/users/register',{
 
             email:email,
             password:password,

@@ -4,7 +4,7 @@ import React from "react"
 const EditRow = ({e, hadleEditClick}) =>{
 
     return (
-        <tr>
+        <tr  >
         <td>{e.description}</td>
         <td>{e.amount}</td>
         <td>{e.date}</td>

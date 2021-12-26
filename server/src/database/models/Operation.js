@@ -12,12 +12,16 @@ module.exports = (sequelize,dataTypes)=>{
     amount:{
         type:dataTypes.INTEGER(11)
     },
+    date :{
+        type:dataTypes.DATE
+    },
     id_type:{
         type:dataTypes.INTEGER(11)
     },
     id_user:{
         type:dataTypes.INTEGER(11)
     }
+    
 
 }
 let config = {

@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from 'react-bootstrap/Table';
-import { useState,useEffect, Fragment } from 'react';
+import { useState,useEffect } from 'react';
 import axios from 'axios';
-import EditRow from './EditRow';
-import EditTableRows from './EditTableRows';
+// import EditRow from './editRow';
+// import EditTableRows from './EditTableRows';
 
 const Tabla = () => {
 
@@ -23,17 +23,17 @@ const Tabla = () => {
       setEditPresupuestos(event.id)
      }
     
-    const obtenerDatos = async () => {
-        //await axios.get('http://localhost:3003/api/operations')
-        await axios.get('http://localhost:3003/operations/list')
-        .then(function (response){
+     const obtenerDatos = async () => {
+      await axios.get('http://localhost:3003/operations/list')
+      
+      .then(function (response){
 
-        const presupuesto = response.data.data
-        console.log(presupuesto);
-        setPresupuestos(presupuesto);
-    })
-
+      const presupuesto = response.data.data
+    
+      setPresupuestos(presupuesto);
+  })
     }
+
     useEffect(() => {
         obtenerDatos()
     }, [])
@@ -53,14 +53,27 @@ const Tabla = () => {
     </thead>
     <tbody>
     {presupuestos.map ((e)=>(  
-    <Fragment> 
+   
+   <tr key={e.id} >
+   <td>{e.description}</td>
+   <td>{e.amount}</td>
+   <td>{e.date}</td>
+   <td>{e.types.name}</td>
+   <td>{e.users.name}</td> 
+   
+</tr>
+   
+   
+   
+   
+   // <Fragment> 
 
-      <EditTableRows/>
-      <EditRow e={e}/>
-     {/* {editPresupuestos === e.id ? ( <EditTableRows/>)
-      : ( <EditRow e={e} hadleEditClick ={hadleEditClick}/> )} */}
+    //   {/* <EditTableRows/> */}
+    //   <EditRow key = {e.id} e={e}/>
+    //  {/* {editPresupuestos === e.id ? ( <EditTableRows/>)
+    //   : ( <EditRow e={e} hadleEditClick ={hadleEditClick}/> )} */}
 
-      </Fragment>
+    //   </Fragment>
     ))}
     </tbody>
     

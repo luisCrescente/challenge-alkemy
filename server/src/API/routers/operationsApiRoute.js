@@ -1,15 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const controller = require('../controllers/operationsApiController')
+const express =require('express');
+const router =express.Router();
+const controller = require ('../controllers/operationsApiController')
 
 
-//router.get('/list',controller.show)
+    router.get('/list',controller.show)
 
-router.get("/api/operations", controller.conection);
+    router.post('/create', controller.create)
 
-router.get('/api/operations', controller.insert);
+    //router.put ('/list/:id', controller.edit)
 
-router.get('/list', controller.detailApi)
+    router.delete('/list/:id', controller.destroy)
 
 
-module.exports = router;
+    module.exports =router;
