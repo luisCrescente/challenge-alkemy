@@ -3,13 +3,17 @@ const router =express.Router();
 const controller = require ('../controllers/operationsApiController')
 
 
-    router.get('/list',controller.show)
 
-    router.post('/create', controller.create)
+router.get('/',controller.create)
 
-    //router.put ('/list/:id', controller.edit)
+router.post('/',controller.storage)
 
-    router.delete('/list/:id', controller.destroy)
+
+router.get('/edit/:id',controller.edit);
+
+router.post('/edit/:id',controller.update);
+
+router.post('/delete/:id', controller.destroy);
 
 
     module.exports =router;

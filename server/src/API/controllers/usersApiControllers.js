@@ -1,84 +1,112 @@
 const db = require('../../database/models');
-const path =require('path');
+const path = require('path');
 const bcrypt = require('bcryptjs');
-//const { Op } = require("sequelize");
+const {
+    validationResult
+} = require('express-validator');
 
 
 
-const controllerUsers ={
-    
-    
-    show: (req,res)=>{
-        db.User.findAll()
-       .then(
-           user=>{
-               return  res.status(200).json({
-                   detial:`http://localhost:3003/users/list`,
-                   data: user,
-                   status: 200,
+const controllerUsers = {
+
+    register: (req, res) => {
+        res.render("register")
+    },
+
+
+    ProcessRegister: (req, res) => {
+        try {
+            const validation = validationResult(req);
+            if (validation.errors.length > 0) {
+                return res.render("register", {
+                    errors: validation.mapped(),
+                    oldData: req.body,
+                });
+            };
+            db.User.findOne({
+                    where: {
+                        email: req.body.email,
+                    }
                 })
-            }
-            
-          
-       )
+                .then((user) => {
+                    if (user) {
+                        return res.render("register", {
+                            errors: {
+                                email: {
+                                    msg: "email ya esta registrado",
+                                },
+                            },
+                            oldData: req.body,
+                        })
+                    } else {
+                        db.User.create({
+                                name: req.body.name,
+                                email: req.body.email,
+                                password: bcrypt.hashSync(req.body.password, 8)
 
+                            }).then(() => {
+                                res.redirect('/users/login')
+                            })
+                            .catch(error => console.log(error))
+                    }
+                }).catch(error => console.log(error))
+        } catch (error) {
+            console.log(error)
+        }
 
     },
-    showApi: (req, res) =>{
-        db.User
-            .findByPk(req.params.id)
-            .then(user=>{
-                
-            return  res.status(200).json({
-                detial:`http://localhost:3003/users/list/${req.params.id}`,
-                data: user,
-                status: 200
-            })
-        })
-        .catch(error=>console.log(error))
 
+    login: function(req, res) {
+        return res.render("login")
     },
 
-    create:(req,res)=>{
-        db.User
-            .create({
-                email:req.body.email,
-                password: bcrypt.hashSync(req.body.password, 10),
-                name:req.body.name
-            })
-            .then(user=>{
-                    return res.status(200).json({
-                        data: user,
-                        status: 200,
-                        created: 'ok'
-                    })
-                })
-                .catch(error=>console.log(error))
-    },
-
-    login:(req,res)=>{
+    processLogin: (req, res) => {
         db.User.findOne({
-            where:{
-                email:req.body.email
-            }
-        })
-        .then(userTologin=>{
-            if(userTologin){
-                let passwordUser =bcrypt.compareSync(req.body.password, userToLogin.password);
-                if (passwordUser){
-                    req.session.userLogged = userToLogin
+                where: {
+                    email: req.body.email
                 }
-                console.log('logeado')
-            }
-        }) .catch(error=>console.log(error))
 
+            })
+            .then(userToLogin => {
+
+                if (userToLogin) {
+
+                    let passwordUser = bcrypt.compareSync(req.body.password, userToLogin.password);
+                    if (passwordUser) {
+
+                        req.session.userLogged = userToLogin
+
+
+                        return res.redirect('/users/profile/' + userToLogin.id);
+                    } else {
+
+                        return res.render('login', {
+                            errors: {
+                                password: {
+                                    msg: 'La contraseña no coincide',
+                                }
+                            }
+
+                        })
+                    }
+                }
+            }).catch(error => console.log(error))
     },
 
-    logout: (req,res)=>{
+    profile: (req, res) => {
+
+        let user = req.session.userLogged
+        console.log(user);
+        res.render('prueba', {
+            user
+        })
+    },
+
+    logout: (req, res) => {
         res.clearCookie('userEmail')
         req.session.destroy();
-        return res.redirect('/login')
-    }
+        return res.redirect('/')
+    },
 }
 
-module.exports =controllerUsers
+module.exports = controllerUsers

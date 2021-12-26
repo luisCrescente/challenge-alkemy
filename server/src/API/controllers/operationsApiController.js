@@ -1,54 +1,122 @@
 const db = require("../../database/models");
 const path = require("path");
-const {op} = require("sequelize");
+const {
+    op
+} = require("sequelize");
 
-const operations ={
-    show:(req,res)=>{    
-        db.Operation
-        .findAll({include:[{association:'types'},{association:'users'}]
-    })
-        .then(operations =>{
-        
-            return  res.status(200).json({
-                data: operations,
-                status:200
+const operations = {
+
+
+    table: (req, res) => {
+        db.Operation.findAll({
+                include: [{
+                    association: 'types'
+                }, {
+                    association: 'users'
+                }]
             })
-        })
+            .then(operations => {
+
+                res.render('table', {
+                    operations,
+                    user: req.session.userLogged
+                })
+
+            }).catch(error => console.log(error))
+    },
+
+    create: (req, res) => {
+        let types = db.Type.findAll()
+        Promise
+            .all([types])
+            .then(
+                function(responses) {
+                    let types = responses[0];
+                    return res.render('table', {
+                        types
+                    })
+                })
             .catch(error => console.log(error))
+
+
     },
 
-    create: (req,res)=>{
+    storage: (req, res) => {
+
+
         db.Operation.create(
-            {
-                
-                description:req.body.descripcion,
-                amount: req.body.monto,
-                date:req.body.date,
-                id_type:req.body.tipo,
-                id_user:2
-                
-        
-                
-            },{include:[{association:'types'},{association:'users'}]
-        })
-        .then(operations =>{
-    
-            return  res.send(operations)
-        })
-            .catch(e=>console.log(e))
-        
+
+                {
+                    description: req.body.description,
+                    amount: req.body.amount,
+                    date: req.body.date,
+                    id_type: req.body.type,
+                    id_user: req.body.user
+                },
+
+                {
+                    include: [{
+                        association: 'types'
+                    }, {
+                        association: 'users'
+                    }]
+                })
+            .then(() => {
+                res.redirect("/operation")
+            })
+            .catch(e => console.log(e))
     },
 
-    destroy: function(req,res){
-        db.Operation.destroy({   
-            include:[{association:'types'},{association:'users'}],
-            where:{id : req.params.id}  
-        })
-        .then(()=>
-            res.send("elimando")
-            )
-            .catch(error=>console.log(error))
+    edit: (req, res) => {
+
+        let operations = db.Operation.findByPk(
+            req.params.id)
+
+        promise
+            .all([operations])
+            .then((responses) => {
+                let operations = responses[0];
+                return res.render('edit', {
+                    operations
+                })
+            }).catch(error => console.log(error))
     },
+
+    update: (req, res) => {
+        db.Operation.findByPk(req.params.id)
+            .then(operation => {
+                db.Operation.update({
+                        description: req.body.description,
+                        amount: req.body.amount,
+                        date: req.body.date,
+                    }, {
+                        where: {
+                            id: req.params.id
+                        }
+                    }).then(() => {
+                        res.render('table')
+                    })
+                    .catch(error => console.log(error))
+
+            }).catch(error => console.log(error))
+    },
+
+    destroy: (req, res) => {
+        db.Operation.destroy({
+                include: [{
+                    association: 'types'
+                }, {
+                    association: 'users'
+                }],
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then(() =>
+                res.redirect("/detail")
+            )
+            .catch(error => console.log(error))
+    }
 
 
 }

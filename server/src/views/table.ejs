@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head'); %>
+</head>
+<body>
+  <form action="/operation" method="POST" id="form" >
+   <div class="input-group mb-3"> <input type="text" name="description"  id="description" placeholder="Descripcion del gasto"></div>
+   <div class="input-group mb-3"> <input type="number" name="amount" id="amount" placeholder="monto"></div>
+     <select name="types" >
+      
+      <% for (let i = 0; i < types.length; i++) { %> 
+      <option value="<%= types[i].id %>"> <%= types[i].name %> </option>
+      
+      <%} %></select>
+    <input type="date" name="date" id="date" >
+    
+    
+    <button type="submit" class="btn btn-secondary">Cargar gastos</button>
+  </form>
+ 
+    <article>
+      
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Monto</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Tipo</th>
+              <th>Editar y Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% operations.forEach(operation=> { %>
+              <% if(user.id == operation.id_user ) { %> 
+            <tr>
+              <th><%= operation.id  %>  </th>
+              <td ><%= operation.description  %></td>
+              <td><%= operation.amount %></td>
+              <td><%= operation.date  %></td>
+              <td><%= operation.types.name %></td>
+              <td></td>
+              <td>
+                <form action="/edit/<%=operation.id %>">
+                <button class="btn btn-primary">Editar</button>
+                <button class="btn btn-danger">Eliminar</button>
+              </form>
+              </td>
+            </tr>
+            <%  } %>  
+                    <%  }) %>  
+          </tbody>
+        </table>
+       
+
+    </article>
+</body>
+</html>

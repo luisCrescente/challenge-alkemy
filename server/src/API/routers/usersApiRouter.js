@@ -1,21 +1,17 @@
 const express =require('express');
 const router =express.Router();
-const controller = require ('../controllers/usersApiControllers')
-
-
-    router.get('/list',controller.show)
-
-    router.get ('/list/:id', controller.showApi)
-
-
-    router.post ('/register', controller.create)
-
-
-    router.post ('/login', controller.login)
+const controller = require ('../controllers/usersApiControllers');
 
 
 
-    router.get('/logout', controller.logout);
+router.get('/register', controller.register),
 
+router.post('/register',controller.ProcessRegister)
 
-    module.exports = router;
+router.get('/login',controller.login)
+
+router.post('/login',controller.processLogin)
+
+router.get('profile/:id',controller.profile)
+
+    module.exports =router;
