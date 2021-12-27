@@ -1,9 +1,7 @@
 const db = require('../../database/models');
 const path = require('path');
 const bcrypt = require('bcryptjs');
-const {
-    validationResult
-} = require('express-validator');
+const {validationResult} = require('express-validator');
 
 
 
@@ -42,18 +40,16 @@ const controllerUsers = {
                         db.User.create({
                                 name: req.body.name,
                                 email: req.body.email,
-                                password: bcrypt.hashSync(req.body.password, 8)
+                                password: bcrypt.hashSync(req.body.password, 10)
 
                             }).then(() => {
-                                res.redirect('/users/login')
+                                res.redirect('/login')
                             })
                             .catch(error => console.log(error))
                     }
                 }).catch(error => console.log(error))
-        } catch (error) {
-            console.log(error)
-        }
 
+        } catch (error) {console.log(error)}
     },
 
     login: function(req, res) {
@@ -73,11 +69,11 @@ const controllerUsers = {
 
                     let passwordUser = bcrypt.compareSync(req.body.password, userToLogin.password);
                     if (passwordUser) {
-
+                        delete userToLogin.pass;
                         req.session.userLogged = userToLogin
 
 
-                        return res.redirect('/users/profile/' + userToLogin.id);
+                        return res.redirect('/operation');
                     } else {
 
                         return res.render('login', {
@@ -93,14 +89,7 @@ const controllerUsers = {
             }).catch(error => console.log(error))
     },
 
-    profile: (req, res) => {
-
-        let user = req.session.userLogged
-        console.log(user);
-        res.render('prueba', {
-            user
-        })
-    },
+    
 
     logout: (req, res) => {
         res.clearCookie('userEmail')

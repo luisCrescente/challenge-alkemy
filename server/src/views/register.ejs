@@ -4,11 +4,39 @@
     <%- include('./partials/head'); %>
 </head>
 <body>
-    <form action="/users/register" method="POST" id="register" >
+    <form action="/register" method="POST" id="register" >
     
+        <div>
     <input type="text" name="name" id="name" placeholder="Ingresa nombre completo">
-    <input type="email" name="email" id="email" placeholder="Correo electronico">
+    <label for="name">Name</label>
+    <% if(locals.errors && errors.name) {%>
+    <div class="text-danger">
+        <%= errors.name.msg  %> 
+    </div>
+    <%} %> 
+</div>
+
+<div>
+    <input type="email" name="email" id="email" placeholder="Ingrese un correo electronico">
+    <label for="email">Email address</label>
+    <% if(locals.errors && errors.email) {%>
+    <div class="text-danger">
+        <%= errors.email.msg  %> 
+    </div>
+    <%} %> 
+</div>
+</div>
+
+<div>
     <input type="password" name="password" id="password" placeholder="Ingresa una contrasenia">
+    <label for="password">Password</label>
+    <% if(locals.errors && errors.password) {%>
+    <div class="text-danger">
+        <%= errors.password.msg  %> 
+    </div>
+    <%} %> 
+    </div>
+
     <button type="submit">Registrarse</button>
     
     </form>
