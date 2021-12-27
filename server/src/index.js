@@ -31,7 +31,7 @@ app.use(cookies());
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
 
-app.use('/users', userApi)
+app.use('/', userApi)
 app.use('/operation', operationApi)
 // app.use('/types',typeApi)
 
