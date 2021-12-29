@@ -4,32 +4,33 @@
     <%- include('./partials/head'); %>
 </head>
 <body>
+<div class="w-25 m-auto p-5 mt-5 space-auto d-grid gap-3 " style=" border: solid 1px lightslategrey" >
     <form action="/" method="POST" id="register" >
     
         <div>
-    <input type="text" name="name" id="name" placeholder="Nombre completo" value="<%=locals.oldData ? oldData.name: null %>">
-    <label for="name">Nombre</label>
+            <label for="name">Usuario:</label>
+    <input class="form-control form-control-sm w-75 mb-2"  type="text" name="name" id="name" placeholder="Nombre de usuario" value="<%=locals.oldData ? oldData.name: null %>">
     <% if(locals.errors && errors.name) {%>
     <div class="text-danger">
         <%= errors.name.msg  %> 
     </div>
     <%} %> 
-</div>
+ </div>
 
-<div>
-    <input type="email" name="email" id="email" placeholder="Ingrese un correo electronico" value="<%=locals.oldData ? oldData.email: null %>">
-    <label for="email">Email</label>
+ <div>
+    <label for="email">Email:</label>
+    <input class="form-control form-control-sm w-75 mb-2" type="email" name="email" id="email" placeholder="Ingrese un email" value="<%=locals.oldData ? oldData.email: null %>">
     <% if(locals.errors && errors.email) {%>
     <div class="text-danger">
         <%= errors.email.msg  %> 
     </div>
     <%} %> 
-</div>
-</div>
+ </div>
 
-<div>
-    <input type="password" name="password" id="password" placeholder="Ingresa una contrasenia" value="<%=locals.oldData ? oldData.password: null %>">
-    <label for="password">contrasenia</label>
+
+ <div>
+    <label for="password">Contraseña:</label>
+    <input  class="form-control form-control-sm w-75 mb-2" type="password" name="password" id="password" placeholder="Ingresa una contrasenia" value="<%=locals.oldData ? oldData.password: null %>">
     <% if(locals.errors && errors.password) {%>
     <div class="text-danger">
         <%= errors.password.msg  %> 
@@ -37,8 +38,12 @@
     <%} %> 
     </div>
 
-    <button type="submit">Registrarse</button>
+
+    <button type="submit" class="btn btn-outline-primary mt-3 me-3">Registrate</button>
+    
+       <a class="btn btn-primary mt-3  ms-3" href="http://localhost:3003/login" role="button">Login</a>
     
     </form>
+</div>
 </body>
 </html>
