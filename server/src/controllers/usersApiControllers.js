@@ -1,4 +1,4 @@
-const db = require('../../database/models');
+const db = require('../database/models');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const {validationResult} = require('express-validator');
@@ -31,7 +31,7 @@ const controllerUsers = {
                         return res.render("register", {
                             errors: {
                                 email: {
-                                    msg: "email ya esta registrado",
+                                    msg: "El email ya esta en uso",
                                 },
                             },
                             oldData: req.body,

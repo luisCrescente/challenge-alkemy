@@ -9,8 +9,8 @@ const port = 3003
 
 
 
-const users = require('../src/API/routers/usersApiRouter')
-const operationApi = require('../src/API/routers/operationsApiRoute');
+const users = require('./routers/usersRouter')
+const operations = require('./routers/operationsRoute');
 // const typeApi = require('../src/API/routers/typeRouter');
 
 app.use(cors())
@@ -32,7 +32,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
 
 app.use('/', users)
-app.use('/operation', operationApi)
+app.use('/operation', operations)
 // app.use('/types',typeApi)
 
 

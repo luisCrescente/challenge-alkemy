@@ -1,11 +1,11 @@
 const express =require('express');
 const router =express.Router();
 const controller = require ('../controllers/usersApiControllers');
+const validations = require('../middleware/userValidations')
 
 
-
-router.get('/', controller.register),
-router.post('/',controller.ProcessRegister)
+router.get('/',controller.register),
+router.post('/',validations,controller.ProcessRegister)
 
 
 router.get('/login',controller.login)

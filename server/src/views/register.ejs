@@ -4,11 +4,11 @@
     <%- include('./partials/head'); %>
 </head>
 <body>
-    <form action="/register" method="POST" id="register" >
+    <form action="/" method="POST" id="register" >
     
         <div>
-    <input type="text" name="name" id="name" placeholder="Ingresa nombre completo">
-    <label for="name">Name</label>
+    <input type="text" name="name" id="name" placeholder="Nombre completo" value="<%=locals.oldData ? oldData.name: null %>">
+    <label for="name">Nombre</label>
     <% if(locals.errors && errors.name) {%>
     <div class="text-danger">
         <%= errors.name.msg  %> 
@@ -17,8 +17,8 @@
 </div>
 
 <div>
-    <input type="email" name="email" id="email" placeholder="Ingrese un correo electronico">
-    <label for="email">Email address</label>
+    <input type="email" name="email" id="email" placeholder="Ingrese un correo electronico" value="<%=locals.oldData ? oldData.email: null %>">
+    <label for="email">Email</label>
     <% if(locals.errors && errors.email) {%>
     <div class="text-danger">
         <%= errors.email.msg  %> 
@@ -28,8 +28,8 @@
 </div>
 
 <div>
-    <input type="password" name="password" id="password" placeholder="Ingresa una contrasenia">
-    <label for="password">Password</label>
+    <input type="password" name="password" id="password" placeholder="Ingresa una contrasenia" value="<%=locals.oldData ? oldData.password: null %>">
+    <label for="password">contrasenia</label>
     <% if(locals.errors && errors.password) {%>
     <div class="text-danger">
         <%= errors.password.msg  %> 

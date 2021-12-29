@@ -1,4 +1,4 @@
-const db = require("../../database/models");
+const db = require("../database/models");
 const path = require("path");
 const { op } = require("sequelize");
 
@@ -72,10 +72,7 @@ const operations = {
             .then(
                 function(responses) {
                     let operation = responses[0];
-                    return res.render('editTable',
-                    {
-                        operation
-                    })
+                    return res.render('editTable',{operation})
                 })
             .catch(error => console.log(error))
     },
@@ -104,7 +101,7 @@ const operations = {
     },
 
     destroy: (req, res) => {
-        db.operation.destroy({
+        db.Operation.destroy({
                 include: [
                 {
                     association: 'types'
