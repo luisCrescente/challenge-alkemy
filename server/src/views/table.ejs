@@ -21,7 +21,7 @@
           </thead>
           <tbody>
             <% operations.forEach(operation=> { %>
-            
+              <% if(user.id == operation.id_user ) { %> 
           <tr>
               <th class="align-middle"><%= operation.id  %>  </th>
               <td class="align-middle"><%= operation.description  %> </td>
@@ -42,13 +42,13 @@
               
           </tr>
     
+          <%  } %>  
           <%  }) %>  
-    
       </tbody>
 </table>
 
 <div class="d-grid gap-2 col-2 mx-auto ">
-  <button class="btn btn-outline-secondary btn-lg">Cargar operación</button>
+ <a href="http://localhost:3003/operation/create"> <button class="btn btn-outline-secondary btn-lg">Cargar operación</button></a>
 </div>
 
     </article>

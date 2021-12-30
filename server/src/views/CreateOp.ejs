@@ -4,20 +4,46 @@
     <%- include('./partials/head'); %>
 </head>
 <body>
-    <form action="/operation" method="POST" id="form" >
-        <div class="input-group mb-3"> <input type="text" name="description"  id="description" placeholder="Descripcion del gasto"></div>
-        <div class="input-group mb-3"> <input type="number" name="amount" id="amount" placeholder="monto"></div>
-        <select name="types" >
-        
-            <% for (let i = 0; i < types.length; i++) { %> 
-        <option value="<%= types[i].id %>"> <%= types[i].name %> </option>
-        
-        <%} %></select>
-        <input type="date" name="date" id="date" >
-        
-        
-        <button type="submit" class="btn btn-secondary">Cargar gastos</button>
-    </form>
+    <form action="/operation/create" method="POST" id="form" >
     
+
+    <div class="row">
+        <div class="col-md-8 mb-4">
+          <div class="card mb-4">
+            <div class="card-header py-3">
+              <h5 class="mb-0">Biling details</h5>
+            </div>
+            <div class="card-body">
+              <form>
+              
+                <!-- Text input -->
+                <div class="form-outline mb-4 w-50">
+                    <label class="form-label" for="description">Descripción</label>
+                  <input type="text" name="description"  id="description"  placeholder="Descripcion del gasto" class="form-control" />
+                </div>
+      
+
+                
+      
+                <!-- Number input -->
+                <div class="form-outline mb-4 w-50" >
+                    <label class="form-label" for="amount">Monto</label>
+                  <input type="number" name="amount" id="amount" placeholder="Monto" class="form-control" />
+                </div>
+                <select name="types" >
+            
+                    <% for (let i = 0; i < types.length; i++) { %> 
+                <option value="<%= types[i].id %>"> <%= types[i].name %> </option>
+                
+                <%} %></select>
+                <input type="date" name="date" id="date" >
+                
+                
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Cargar gastos</button>
+               
+      
+      </div>
+         
+    </form>
 </body>
 </html>

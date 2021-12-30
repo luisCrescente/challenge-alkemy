@@ -7,18 +7,12 @@ const operations = {
 
         db.Operation.findAll({
                 include: [
-                {
-                    association: 'types'
-                },
-                {
-                    association: 'users'
-                }]
+                {association: 'types'},
+                { association: 'users'}]
             })
             .then(operations => {
 
-                res.render('table', {
-                    operations
-                })
+                res.render('table', {operations, user:req.session.userLogged})
             }).catch(error => console.log(error));
     },
 
@@ -29,9 +23,7 @@ const operations = {
             .then(
                 function(responses) {
                     let types = responses[0];
-                    return res.render('createOp', {
-                        types
-                    })
+                    return res.render('createOp', { types })
                 })
             .catch(error => console.log(error))
     },
@@ -39,28 +31,29 @@ const operations = {
     storage: (req, res) => {
         db.Operation.create(
 
-                {
-                    description: req.body.description,
-                    amount: req.body.amount,
-                    date: req.body.date,
-                    id_type: req.body.types,
-                    id_user: req.session.userLogged.id
-                },
+            {
+                description: req.body.description,
+                amount: req.body.amount,
+                date: req.body.date,
+                id_type: req.body.types,
+                id_user: req.session.userLogged.id
+            },
 
+            {
+                include: [
                 {
-                    include: [
-                    {
-                        association: 'types'
-                    },
-                    {
-                        association: 'users'
-                    }]
-                })
-            .then(() => {
-                res.redirect("/operation")
+                    association: 'types'
+                },
+                {
+                    association: 'users'
+                }]
             })
-            .catch(e => console.log(e))
-    },
+        .then(() => {
+            res.redirect("/operation")
+        })
+        .catch(e => console.log(e))
+},
+
 
     edit: (req, res) => {
 

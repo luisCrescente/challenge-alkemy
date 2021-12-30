@@ -7,7 +7,7 @@ const validations = [
     body('name').notEmpty().withMessage('Debes poner un nombre Completo'),
 
     body('email')
-        .notEmpty().withMessage('El campo no puede estar vacío').bail()
+        .notEmpty().withMessage('Debe ingresar un email').bail()
         .isEmail().withMessage('Debés escribir un formato de email válido'),
     body('password')
         .notEmpty().withMessage('El campo no puede estar vacío').bail()

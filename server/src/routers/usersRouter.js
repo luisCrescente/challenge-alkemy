@@ -1,7 +1,7 @@
 const express =require('express');
 const router =express.Router();
-const controller = require ('../controllers/usersApiControllers');
-const validations = require('../middleware/userValidations')
+const controller = require ('../controllers/usersControllers');
+const validations = require('../middleware/RegisterValidations')
 
 
 router.get('/',controller.register),
