@@ -4,13 +4,42 @@
     <%- include('./partials/head'); %>
 </head>
 <body>
-    <form action="/operation/edit/<%=operation.id%>" method="POST">
+    <form  action="/operation/edit/<%=operation.id%>" method="POST" >
+    
 
-        <div class="input-group mb-3"> <input type="text" name="descriptionEdit"  id="descriptionEdit" value="<%=operation.description%>"></div>
-        <div class="input-group mb-3"> <input type="number" name="amountEdit" id="amountEdit" value="<%=operation.amount%>"></div>
-        <input type="date" name="dateEdit" id="dateEdit" >
-
-        <BUTton type="submit">Editar gasto</BUTton>
-    </form>
+        <div class="row">
+            <div class="col-md-8 mb-4">
+              <div class="card mb-4">
+                <div class="card-header py-3">
+                  <h5 class="mb-0">Editar operación</h5>
+                </div>
+                <div class="card-body">
+                  <form>
+                  
+                    <!-- Text input -->
+                    <div class="form-outline mb-4 w-50">
+                        <label class="form-label" for="Editdescription">Descripción</label>
+                      <input type="text" name="Editdescription"  id="Editdescription"  value="<%=operation.description%>" class="form-control" />
+                    </div>
+          
+    
+                    
+          
+                    <!-- Number input -->
+                    <div class="form-outline mb-4 w-50" >
+                        <label class="form-label" for="editAmount">Monto</label>
+                      <input type="number" name="editAmount" id="editAmount"  value="<%=operation.amount%>" class="form-control" />
+                    </div>
+                   
+                   
+                    <input type="date" name="editDate" value="<%=operation.date%>" >
+                    
+                    
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Editar</button>
+                   
+          
+          </div>
+             
+        </form>
 </body>
 </html>
