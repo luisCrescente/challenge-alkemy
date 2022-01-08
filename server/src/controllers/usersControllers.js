@@ -57,7 +57,19 @@ const controllerUsers = {
     },
 
     processLogin: (req, res) => {
-        db.User.findOne({
+        try{
+
+            const validation = validationResult(req);
+        if(validation.errors.length > 0){
+                return res.render("login",
+                    {
+                    errors:validation.mapped(),
+                    oldData: req.body,
+                    }
+                );
+        };
+
+            db.User.findOne({
                 where: {
                     email: req.body.email
                 }
@@ -74,8 +86,7 @@ const controllerUsers = {
 
 
                         return res.redirect('/operation');
-                    } else {
-
+                    } 
                         return res.render('login', {
                             errors: {
                                 password: {
@@ -83,10 +94,18 @@ const controllerUsers = {
                                 }
                             }
 
-                        })
-                    }
+                        }).catch(error => console.log(error))
                 }
+                return res.render('login',{
+                    errors:{
+                        email:{
+                            msg: 'No se encuentra el mail',
+                        }
+                    }
+                })
             }).catch(error => console.log(error))
+        }
+        catch(error ){console.log(error)}
     },
 
     

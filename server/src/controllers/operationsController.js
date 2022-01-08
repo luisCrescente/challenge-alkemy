@@ -71,26 +71,21 @@ const operations = {
     },
 
     update: (req, res) => {
-        db.Operation.findByPk(
-                req.params.id)
-
-            .then(() => {
-                db.Operation.update(
-                    {
-                        description: req.body.description,
-                        amount: req.body.amount,
-                        date: req.body.date,
-                    }, 
-                    {
-                        where: {
-                            id: req.params.id
-                        }
-                    })
-                    .then(() => {
-                        res.redirect("/operation")
-                    }).catch(error => console.log(error))
-            })
-            .catch(error => console.log(error))
+        db.Operation.findByPk(req.params.id)
+        .then(()=>{
+            db.Operation.update({
+                description:req.body.description,
+                amount:req.body.amount,
+                date:req.body.date,
+            },
+            {where:{id: req.params.id}
+        })
+        .then(()=>{
+            res.redirect("/operation")
+        }) .catch(error=>console.log(error))
+        }) .catch(error=>console.log(error))
+            
+        
     },
 
     destroy: (req, res) => {
