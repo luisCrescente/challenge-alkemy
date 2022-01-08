@@ -2,7 +2,9 @@ const express =require('express');
 const router =express.Router();
 const controller = require ('../controllers/usersControllers');
 const validations = require('../middleware/RegisterValidations')
-const guestMiddleware = require('../middleware/gustMiddelware')
+const guestMiddleware = require('../middleware/guestMiddleware')
+
+
 
 router.get('/',guestMiddleware,controller.register),
 router.post('/',validations,controller.ProcessRegister)

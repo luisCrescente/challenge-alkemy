@@ -11,6 +11,7 @@ const port = 3003
 
 const users = require('./routers/usersRouter')
 const operations = require('./routers/operationsRoute');
+const loggedMiddleware= require('./middleware/userLogged');
 // const typeApi = require('../src/API/routers/typeRouter');
 
 app.use(cors())
@@ -30,6 +31,8 @@ app.use(cookies());
 
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
+
+app.use(loggedMiddleware);
 
 app.use('/', users)
 app.use('/operation', operations)

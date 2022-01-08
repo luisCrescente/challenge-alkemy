@@ -1,16 +1,16 @@
 const express =require('express');
 const router =express.Router();
-const controller = require ('../controllers/operationsController')
+const controller = require ('../controllers/operationsController');
+const authMiddleware = require('../middleware/authUser');
+
+router.get('/',authMiddleware,controller.table);
 
 
-router.get('/',controller.table);
-
-
-router.get('/create',controller.create)
+router.get('/create',authMiddleware,controller.create)
 router.post('/create',controller.storage)
 
 
-router.get('/edit/:id',controller.edit);
+router.get('/edit/:id',authMiddleware,controller.edit);
 router.post('/edit/:id',controller.update);
 
 router.post('/delete/:id',controller.destroy);
