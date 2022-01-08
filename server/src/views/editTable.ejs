@@ -14,25 +14,21 @@
                   <h5 class="mb-0">Editar operación</h5>
                 </div>
                 <div class="card-body">
-                  <form>
                   
                     <!-- Text input -->
                     <div class="form-outline mb-4 w-50">
-                        <label class="form-label" for="Editdescription">Descripción</label>
-                      <input type="text" name="Editdescription"  id="Editdescription"  value="<%=operation.description%>" class="form-control" />
+                        <label class="form-label" for="description">Descripción</label>
+                      <input type="text" name="description"  id="description"  value="<%=operation.description%>" class="form-control" />
                     </div>
-          
     
-                    
-          
                     <!-- Number input -->
                     <div class="form-outline mb-4 w-50" >
-                        <label class="form-label" for="editAmount">Monto</label>
-                      <input type="number" name="editAmount" id="editAmount"  value="<%=operation.amount%>" class="form-control" />
+                        <label class="form-label" for="amount">Monto</label>
+                      <input type="number" name="amount" id="amount"  value="<%=operation.amount%>" class="form-control" />
                     </div>
                    
                    
-                    <input type="date" name="editDate" value="<%=operation.date%>" >
+                    <input type="date" name="date" value="<%=operation.date%>" >
                     
                     
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Editar</button>
